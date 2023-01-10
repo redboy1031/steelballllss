@@ -1,0 +1,34 @@
+local items = {"Steel Ball"}
+        local me = game.Players.LocalPlayer
+        char = me.Character
+        HRP = char.HumanoidRootPart
+        local function tp(arg1)
+            HRP.CFrame = arg1.CFrame   
+        end
+        local itemsFolder = game:GetService("Workspace").Map.Items.SpawnedItems
+        sethiddenproperty(game.Lighting, "Technology", Enum.Technology.Legacy)
+        -- ///////////////////
+        -- FARM
+        -- ///////////////////
+        for i, v in pairs(itemsFolder:GetChildren()) do
+            if table.find(items, v.Name) then
+                print(v)
+                if v:IsA("Part") or v:IsA("MeshPart") or v:IsA("Mesh") then
+                    tp(v)
+                    char.Humanoid.Jump = true
+                    wait(.5)
+                    local prox = v:WaitForChild("ProximityPrompt", .5)
+                    fireproximityprompt(prox)
+                    wait()
+                    print("Fired")
+                elseif v:FindFirstChild("Handle") then
+                    tp(v.Handle)
+                    char.Humanoid.Jump = true
+                    wait(.5)
+                    local prox = v.Handle:WaitForChild("ProximityPrompt", .5)
+                    fireproximityprompt(prox)
+                    wait()
+                    print("Fired")
+                end
+            end
+        end
